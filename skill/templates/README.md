@@ -22,7 +22,7 @@ These exist as ready-to-adapt code the agent can pull from. Each is linter-clean
 | [`private-rps/`](private-rps/) | Encrypted-only resolution; result publicly decryptable |
 | [`encrypted-dice/`](encrypted-dice/) | `FHE.randEuint8` + plaintext `FHE.rem` for fair 1..6 rolls |
 | [`confidential-vesting/`](confidential-vesting/) | Plaintext-divisor scaling on encrypted totals over time |
-| [`private-limit-order/`](private-limit-order/) | Conditional public reveal — only matched price is exposed |
+| [`private-limit-order/`](private-limit-order/) | Conditional public reveal, only matched price is exposed |
 
 ## Verification
 
@@ -31,4 +31,4 @@ node skill/scripts/fhe-lint.mjs skill/templates    # all 10 lint clean
 cd hardhat && pnpm test                            # 12 passing tests on the deployed 5
 ```
 
-When adapting any template, replace the constructor args, names, and business-logic stubs. The ACL pattern, branchless updates, and decryption flow are not negotiable — keep them.
+When adapting any template, replace the constructor args, names, and business-logic stubs. The ACL pattern, branchless updates, and decryption flow are not negotiable, keep them.

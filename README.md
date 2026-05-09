@@ -4,9 +4,9 @@
 
 ### Pick your path
 
-| 🚀 **Proceed** | 📖 **How to use** |
+| **Proceed** | **How to use** |
 |---|---|
-| You know smart contracts. Skip to [Install the skill](#install-the-skill) and [Verify it works](#verify-it-works). | Never touched a smart contract before? Start with **[HOW_TO_USE.md](HOW_TO_USE.md)** — plain-English tour of what we built, how each contract works, and real-world use cases. |
+| You know smart contracts. Skip to [Install the skill](#install-the-skill) and [Verify it works](#verify-it-works). | Never touched a smart contract before? Start with **[HOW_TO_USE.md](HOW_TO_USE.md)**, plain-English tour of what we built, how each contract works, and real-world use cases. |
 
 [Skill →](skill/SKILL.md) · [Live contracts](#live-on-sepolia) · [Verify locally](#verify-it-works)
 
@@ -16,11 +16,11 @@
 
 When you ask Claude / Cursor / Windsurf to write an FHEVM contract today, it hallucinates function names, mixes deprecated APIs (`TFHE.*`, `fhevm/lib/...`), forgets ACL grants, and produces code that doesn't compile.
 
-This skill fixes that by giving the agent **a structured, version-pinned manual + working templates + a static linter** — installed in seconds, used by the agent automatically.
+This skill fixes that by giving the agent **a structured, version-pinned manual + working templates + a static linter**, installed in seconds, used by the agent automatically.
 
 ## Live on Sepolia
 
-Five templates are **deployed and verifiable** on Sepolia testnet right now. Click any address to interact. The repo ships **five more** as additional reference patterns (see [`skill/templates/`](skill/templates/) — covers payroll, RPS, dice, vesting, limit order). For real-world examples of each, see [HOW_TO_USE.md](HOW_TO_USE.md).
+Five templates are **deployed and verifiable** on Sepolia testnet right now. Click any address to interact. The repo ships **five more** as additional reference patterns (see [`skill/templates/`](skill/templates/), covers payroll, RPS, dice, vesting, limit order). For real-world examples of each, see [HOW_TO_USE.md](HOW_TO_USE.md).
 
 | Contract | One-liner | Showcases | Sepolia address |
 |---|---|---|---|
@@ -34,12 +34,13 @@ Five templates are **deployed and verifiable** on Sepolia testnet right now. Cli
 
 | Path | What it is | Lines |
 |---|---|---|
-| [`skill/SKILL.md`](skill/SKILL.md) | The skill router — frontmatter + 8 hard rules + workflow. What an agent loads first. | ~140 |
+| [`skill/SKILL.md`](skill/SKILL.md) | The skill router, frontmatter + 8 hard rules + workflow. What an agent loads first. | ~140 |
 | [`skill/references/`](skill/references/) | 12 deep-dive chapters: onboarding, mental model, types, ops, ACL, inputs, decryption, frontend (v3 SDK), testing, deployment, anti-patterns, recipes. Loaded progressively, not upfront. | ~1,400 |
-| [`skill/templates/`](skill/templates/) | Ten vetted starting points. Five are deployed live (see above); five more — `ConfidentialPayroll`, `PrivateRPS`, `EncryptedDice`, `ConfidentialVesting`, `PrivateLimitOrder` — ship as additional reference patterns. All linter-clean. | ~700 |
-| [`skill/scripts/fhe-lint.mjs`](skill/scripts/fhe-lint.mjs) | Static linter — 13 rules, ranked by severity. Each maps to an entry in [`anti-patterns.md`](skill/references/anti-patterns.md). | ~340 |
-| [`hardhat/`](hardhat/) | Hardhat workspace — 12 passing tests across all 5 contracts, mock mode against `@fhevm/hardhat-plugin`. | — |
-| [`evals/`](evals/) | Prompts + harness measuring agent accuracy with vs. without the skill. | — |
+| [`skill/templates/`](skill/templates/) | Ten vetted starting points. Five are deployed live (see above); five more, `ConfidentialPayroll`, `PrivateRPS`, `EncryptedDice`, `ConfidentialVesting`, `PrivateLimitOrder`, ship as additional reference patterns. All linter-clean. | ~700 |
+| [`skill/scripts/fhe-lint.mjs`](skill/scripts/fhe-lint.mjs) | Static linter, 13 rules, ranked by severity. Each maps to an entry in [`anti-patterns.md`](skill/references/anti-patterns.md). | ~340 |
+| [`hardhat/`](hardhat/) | Hardhat workspace, 12 passing tests across all 5 contracts, mock mode against `@fhevm/hardhat-plugin`. | ~820 |
+| [`contracts/`](contracts/) | Foundry-style mirror with 12 passing `forge test` cases, ready for `forge build` and `forge test`. | ~700 |
+| [`evals/`](evals/) | Prompts + harness measuring agent accuracy with vs. without the skill (`5/28` baseline → `28/28` with skill). | ~780 |
 
 ## Install the skill
 
@@ -66,11 +67,11 @@ cp skill/SKILL.md .cursor/rules/zama-cookbook.md
 cp -r skill/references .cursor/rules/zama-cookbook-references
 ```
 
-(Same files work in any agent — the format is plain Markdown with YAML frontmatter.)
+(Same files work in any agent, the format is plain Markdown with YAML frontmatter.)
 
 ## Verify it works
 
-Run these in order — each one validates a separate claim. All five take under 2 minutes combined.
+Run these in order, each one validates a separate claim. All five take under 2 minutes combined.
 
 ```bash
 # 1. Linter clean against templates
@@ -88,7 +89,7 @@ cd hardhat && pnpm install && pnpm test
 
 Cold-clone install time on a fresh machine: ~2 minutes (mostly `pnpm install`).
 
-## Stack — pinned versions
+## Stack: pinned versions
 
 These are the **exact versions verified to compile and pass tests** as of May 2026. Cross-checked against `zama-ai/fhevm-react-template` HEAD.
 
@@ -96,7 +97,7 @@ These are the **exact versions verified to compile and pass tests** as of May 20
 |---|---|
 | Solidity | `^0.8.27`, `evmVersion: cancun` |
 | `@fhevm/solidity` | `0.11.1` (the bare `fhevm` package is **deprecated**) |
-| `encrypted-types` | `0.0.4` (transitive — must be declared explicitly to avoid Hardhat HH411) |
+| `encrypted-types` | `0.0.4` (transitive, must be declared explicitly to avoid Hardhat HH411) |
 | `@fhevm/hardhat-plugin` | `0.4.x` |
 | `@zama-fhe/sdk` + `@zama-fhe/react-sdk` | `^3.0.0` (the v3 SDK pair; supersedes `@zama-fhe/relayer-sdk`) |
 | Confidential token standard | `@openzeppelin/confidential-contracts` (ERC-7984) |

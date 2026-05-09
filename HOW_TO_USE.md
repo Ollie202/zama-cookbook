@@ -1,6 +1,6 @@
 # How to use this
 
-> A plain-English guide for anyone — even if you've never touched a smart contract before. If you already know your way around Solidity and just want install commands, [the README has those](README.md#install-the-skill).
+> A plain-English guide for anyone, even if you've never touched a smart contract before. If you already know your way around Solidity and just want install commands, [the README has those](README.md#install-the-skill).
 
 This file answers, in order:
 
@@ -14,7 +14,7 @@ This file answers, in order:
 
 ## 1. What's a smart contract anyway?
 
-Imagine a **vending machine that lives on the internet**. Anyone can walk up to it. You put something in, it follows the rule it was built with, output comes out. Nobody — not even the person who built it — can change the rules afterward.
+Imagine a **vending machine that lives on the internet**. Anyone can walk up to it. You put something in, it follows the rule it was built with, output comes out. Nobody, not even the person who built it, can change the rules afterward.
 
 That's a smart contract. **Code + data, sitting at an address, doing one job, forever.**
 
@@ -24,13 +24,13 @@ A "deployed" contract is the same as a vending machine you've already plugged in
 
 Two requirements:
 
-1. **A wallet** (like MetaMask) — gives the user an address, like an email but for blockchain.
-2. **A way to talk to the contract** — usually a website, sometimes the blockchain explorer (Etherscan), sometimes an AI-generated tool.
+1. **A wallet** (like MetaMask), gives the user an address, like an email but for blockchain.
+2. **A way to talk to the contract**, usually a website, sometimes the blockchain explorer (Etherscan), sometimes an AI-generated tool.
 
 Two kinds of interaction:
 
-- **Read** (free, instant) — *"Hey contract, what's the highest bid right now?"* — costs nothing, anyone can do it.
-- **Write** (small fee, ~10s) — *"Hey contract, here's my bid of 100"* — recorded permanently on the blockchain.
+- **Read** (free, instant), *"Hey contract, what's the highest bid right now?"*, costs nothing, anyone can do it.
+- **Write** (small fee, ~10s), *"Hey contract, here's my bid of 100"*, recorded permanently on the blockchain.
 
 Our contracts are special because **writes can include encrypted values**. The blockchain sees random-looking gibberish, but the contract knows how to do math on it without ever decrypting it.
 
@@ -38,9 +38,9 @@ Our contracts are special because **writes can include encrypted values**. The b
 
 All 5 are deployed live and ready to use. (Addresses are in the [main README](README.md#live-on-sepolia) if you want to poke them on Etherscan.)
 
-### A. ConfidentialERC20 — "secret USDC"
+### A. ConfidentialERC20, "secret USDC"
 
-**What it does:** A token (like USDC or DAI) where balances are **secret**. Nobody can see how much anyone holds — not even by reading the blockchain.
+**What it does:** A token (like USDC or DAI) where balances are **secret**. Nobody can see how much anyone holds, not even by reading the blockchain.
 
 **How it's used:**
 1. Owner calls `mint(0xAlice, 1000)` → Alice has 1,000 secret tokens.
@@ -55,12 +55,12 @@ All 5 are deployed live and ready to use. (Addresses are in the [main README](RE
 
 ---
 
-### B. SealedBidAuction — "auction with hidden bids"
+### B. SealedBidAuction, "auction with hidden bids"
 
 **What it does:** An auction where every bid is **encrypted during the auction**. After the deadline, only the *winning* bid + winner are revealed. Losing bids stay secret forever.
 
 **How it's used:**
-1. Seller deploys it — *"I'm auctioning a Vintage 1985 Macintosh, deadline in 24 hours."*
+1. Seller deploys it, *"I'm auctioning a Vintage 1985 Macintosh, deadline in 24 hours."*
 2. Bidders call `bid(amount)` with their amount encrypted.
 3. After deadline, anyone calls `settle()` → contract reveals the winner + winning bid. Everyone else's bid stays hidden.
 
@@ -68,7 +68,7 @@ All 5 are deployed live and ready to use. (Addresses are in the [main README](RE
 
 ---
 
-### C. PrivateVote — "secret ballot, public result"
+### C. PrivateVote, "secret ballot, public result"
 
 **What it does:** Voting where individual votes stay encrypted but the **final tally** becomes public.
 
@@ -81,9 +81,9 @@ All 5 are deployed live and ready to use. (Addresses are in the [main README](RE
 
 ---
 
-### D. BlindLottery — "fair random winner"
+### D. BlindLottery, "fair random winner"
 
-**What it does:** A truly fair lottery. Anyone can enter; after the deadline anyone can trigger the draw. The contract picks a random winner using **encrypted on-chain randomness** that nobody — including the person triggering the draw — can predict or manipulate.
+**What it does:** A truly fair lottery. Anyone can enter; after the deadline anyone can trigger the draw. The contract picks a random winner using **encrypted on-chain randomness** that nobody, including the person triggering the draw, can predict or manipulate.
 
 **How it's used:**
 1. People call `enter()` to claim a ticket.
@@ -93,38 +93,38 @@ All 5 are deployed live and ready to use. (Addresses are in the [main README](RE
 
 ---
 
-### E. ConfidentialAllowlist — "secret VIP list"
+### E. ConfidentialAllowlist, "secret VIP list"
 
-**What it does:** A members-only system where **the membership list itself is secret**. Gated functions silently no-op for non-members — they can't even tell whether they're not on the list, or the function just failed for some other reason.
+**What it does:** A members-only system where **the membership list itself is secret**. Gated functions silently no-op for non-members, they can't even tell whether they're not on the list, or the function just failed for some other reason.
 
 **How it's used:**
-1. Admin calls `grant(0xAlice)` — Alice is silently added.
-2. Alice calls `gatedIncrement(50)` — her counter goes up by 50.
-3. Bob (not on the list) calls the same function — contract silently does nothing.
+1. Admin calls `grant(0xAlice)`, Alice is silently added.
+2. Alice calls `gatedIncrement(50)`, her counter goes up by 50.
+3. Bob (not on the list) calls the same function, contract silently does nothing.
 
-**Real-world use:** **Whistleblower portals, private medical record access, exclusive token drops** — anywhere membership itself is sensitive. Bonus: nobody can probe the list by trying calls and watching for failures, because nothing fails visibly.
+**Real-world use:** **Whistleblower portals, private medical record access, exclusive token drops**, anywhere membership itself is sensitive. Bonus: nobody can probe the list by trying calls and watching for failures, because nothing fails visibly.
 
 ## 4. How people plug into them
 
 Three layers, simplest to fanciest:
 
-### Layer 1 — Block explorer (clunky but works)
+### Layer 1, Block explorer (clunky but works)
 
 A blockchain explorer like Etherscan has a "Write Contract" tab where you can fill in form fields and click buttons to call the contract directly. Works for testing. Looks ugly. No encryption helpers.
 
-### Layer 2 — A normal frontend website
+### Layer 2, A normal frontend website
 
 A developer builds a React/Next.js site with nice buttons. The site uses the **Zama relayer SDK** to encrypt the user's input *before* sending it to the contract. User sees a clean UI, never sees the encryption math. This is the way most real users will interact with FHE apps.
 
 Our [`skill/references/frontend.md`](skill/references/frontend.md) teaches AI agents exactly how to build this layer.
 
-### Layer 3 — An AI agent using this skill (the cool one)
+### Layer 3, An AI agent using this skill (the cool one)
 
 A developer types *"build me a sealed-bid auction with a Next.js frontend"* into Claude. Claude reads this skill, generates the contract, the tests, and the frontend. **That's the whole point of this project.**
 
 ## 5. What's the agent skill for?
 
-Developers are increasingly writing code with AI tools (Claude Code, Cursor, Windsurf), but those AI tools have never been trained on FHEVM. Ask Claude to write you a confidential auction today and you'll get nonsense — invented function names, deprecated APIs, missing encryption permissions.
+Developers are increasingly writing code with AI tools (Claude Code, Cursor, Windsurf), but those AI tools have never been trained on FHEVM. Ask Claude to write you a confidential auction today and you'll get nonsense, invented function names, deprecated APIs, missing encryption permissions.
 
 **This skill is the missing manual.** It teaches AI agents:
 
