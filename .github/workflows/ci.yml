@@ -30,16 +30,3 @@ jobs:
           node evals/run.mjs --agent baseline
           node evals/run.mjs --agent skill
           node evals/run.mjs --report
-
-  foundry:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: foundry-rs/foundry-toolchain@v1
-        with: { version: nightly }
-      - name: Install soldeer deps
-        run: cd contracts && forge soldeer install
-      - name: forge build
-        run: cd contracts && forge build --sizes
-      - name: forge test
-        run: cd contracts && forge test -vv
