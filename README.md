@@ -69,6 +69,40 @@ cp -r skill/references .cursor/rules/zama-cookbook-references
 
 (Same files work in any agent, the format is plain Markdown with YAML frontmatter.)
 
+## How the skill auto-activates
+
+You don't need to manually invoke it. The agent scans the skill's frontmatter on every message and loads it when the user's prompt mentions any of:
+
+- **FHEVM**, **FHE**, **fully homomorphic encryption**
+- **Zama** (the protocol name)
+- **confidential smart contract**, **encrypted contract**
+- Type names: **euint64**, **ebool**, **eaddress**, **encrypted types**
+- API references: **@fhevm/solidity**, **relayer SDK**, **@fhevm/hardhat-plugin**, **forge-fhevm**
+- Concepts: **ACL grants**, **input proofs**, **decryption oracle**
+- Privacy use cases: **sealed-bid auction**, **private voting**, **encrypted balance**, **confidential token**
+
+### Examples
+
+**These prompts trigger the skill automatically:**
+
+```
+Build me a confidential auction using Zama FHEVM
+Write a sealed-bid auction smart contract
+I need encrypted balances with FHE
+How do I use euint64 in Solidity
+Build a private voting contract on Zama
+```
+
+**These don't (no privacy signal, agent won't know FHE is wanted):**
+
+```
+Build me a smart contract for an auction
+Write me a Solidity voting app
+I need a token contract
+```
+
+If your prompt is too generic, either add a privacy keyword (`"build me a private NFT raffle"`) or explicitly invoke the skill (`"use the zama-cookbook skill to..."`).
+
 ## Verify it works
 
 Run these in order, each one validates a separate claim. All five take under 2 minutes combined.
