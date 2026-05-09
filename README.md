@@ -20,7 +20,7 @@ This skill fixes that by giving the agent **a structured, version-pinned manual 
 
 ## How the skill auto-activates
 
-You don't need to manually invoke it. After install, the agent scans the skill's frontmatter on every message and loads it when the user's prompt mentions any of:
+You don't need to manually invoke it. After install, the agent scans the skill's frontmatter on every message and loads it when the user is asking to **write, test, debug, or deploy code** AND the prompt mentions:
 
 - **FHEVM**, **FHE**, **fully homomorphic encryption**
 - **Zama** (the protocol name)
@@ -30,25 +30,28 @@ You don't need to manually invoke it. After install, the agent scans the skill's
 - Concepts: **ACL grants**, **input proofs**, **decryption oracle**
 - Privacy use cases: **sealed-bid auction**, **private voting**, **encrypted balance**, **confidential token**
 
-**These prompts trigger the skill automatically:**
+The skill gates on **intent** (write code), not just keywords. So mentioning Zama in a non-coding context will NOT activate it.
+
+**These prompts trigger the skill ✅**
 
 ```
 Build me a confidential auction using Zama FHEVM
 Write a sealed-bid auction smart contract
 I need encrypted balances with FHE
 How do I use euint64 in Solidity
-Build a private voting contract on Zama
+Debug this FHEVM contract for me
 ```
 
-**These don't (no privacy signal, agent won't know FHE is wanted):**
+**These don't, agent answers normally without loading the skill:**
 
 ```
-Build me a smart contract for an auction
-Write me a Solidity voting app
-I need a token contract
+Write me a thread about Zama         (content task, not code)
+Explain what Zama Protocol is        (general explainer)
+Summarise the FHEVM whitepaper       (summary, not code)
+Build me a smart contract for an auction   (no privacy signal)
 ```
 
-If your prompt is too generic, either add a privacy keyword (`"build me a private NFT raffle"`) or explicitly invoke the skill (`"use the zama-cookbook skill to..."`).
+If your coding prompt is too generic to trigger the skill, add a privacy keyword (`"build me a private NFT raffle"`) or invoke explicitly (`"use the zama-cookbook skill to..."`).
 
 ## Live on Sepolia
 

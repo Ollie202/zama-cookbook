@@ -1,6 +1,9 @@
 ---
 name: zama-cookbook
-description: Use when writing, testing, or deploying confidential smart contracts on Zama FHEVM (encrypted ERC-20s, sealed-bid auctions, private voting, confidential DeFi, anything using `@fhevm/solidity`, `euint*`/`ebool` types, the relayer SDK, or `@fhevm/hardhat-plugin` / `forge-fhevm`). Triggers on mentions of FHEVM, Zama, fully homomorphic encryption, confidential ERC-7984, encrypted types, ACL grants, input proofs, decryption oracle, or any file importing `@fhevm/solidity/lib/FHE.sol`.
+description: |
+  Use ONLY when the user wants to WRITE, TEST, DEBUG, or DEPLOY code that uses Zama FHEVM (confidential smart contracts with encrypted balances, sealed-bid auctions, private voting, confidential DeFi). Triggers on coding requests that mention FHEVM, Zama Protocol, fully homomorphic encryption, confidential ERC-7984, encrypted types (`euint*`, `ebool`, `eaddress`), ACL grants, input proofs, decryption oracle, the relayer SDK, `@fhevm/solidity`, `@fhevm/hardhat-plugin`, or `forge-fhevm`. Also triggers when the user pastes Solidity that imports `@fhevm/solidity/lib/FHE.sol`.
+
+  Do NOT activate for: writing threads/articles/blog posts/marketing copy about Zama, explaining what Zama is as a company, general Web3/Ethereum questions, NFT or token questions that don't involve confidentiality, or any non-coding task. If the user mentions "Zama" but is asking for content (a thread, an article, a tweet, a summary, marketing copy, an explainer), do NOT load this skill, just answer the content question normally.
 version: 1.0.0
 license: MIT
 ---
