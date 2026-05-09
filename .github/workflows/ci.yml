@@ -49,7 +49,7 @@ jobs:
       - name: Hardhat compile
         run: pnpm exec hardhat compile
 
-  foundry-compile:
+  foundry:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -63,3 +63,5 @@ jobs:
         run: forge soldeer install
       - name: forge build
         run: forge build --sizes
+      - name: forge test
+        run: forge test -vv
