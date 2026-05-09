@@ -30,3 +30,36 @@ jobs:
           node evals/run.mjs --agent baseline
           node evals/run.mjs --agent skill
           node evals/run.mjs --report
+
+  hardhat:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hardhat
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile=false
+      - name: Hardhat compile
+        run: pnpm exec hardhat compile
+
+  foundry-compile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Install soldeer dependencies
+        run: forge soldeer install
+      - name: forge build
+        run: forge build --sizes
